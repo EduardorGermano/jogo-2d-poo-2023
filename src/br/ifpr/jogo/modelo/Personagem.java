@@ -1,5 +1,6 @@
 package br.ifpr.jogo.modelo;
 import java.awt.Image;
+import java.awt.event.KeyEvent;
 
 import javax.swing.ImageIcon;
 
@@ -11,17 +12,92 @@ public class Personagem {
     private Image imagem;
     private int larguraImagem;
     private int alturaImagem;
+    private int velocidadeDeDeslocamento;
 
-    public Personagem(){
-        this.posicaoEmX = 100;
-        this.posicaoEmY = 100;
+    private static final int POSICAO_INICIAL_EM_X = 100;
+    private static final int POSICAO_INICIAL_EM_Y = 100;
+    
+    public Personagem(int velocidadeDeDeslocamento){
+        this.posicaoEmX = POSICAO_INICIAL_EM_X;
+        this.posicaoEmY = POSICAO_INICIAL_EM_Y;
+        this.velocidadeDeDeslocamento = velocidadeDeDeslocamento;
     }
 
     public void carregar(){
-        ImageIcon carregando = new ImageIcon("recursos\\nave.png");
+        ImageIcon carregando = new ImageIcon("recurso\\nave.png");
         this.imagem = carregando.getImage();
         this.alturaImagem = this.imagem.getWidth(null);
         this.larguraImagem = this.imagem.getWidth(null); 
+    }
+
+    public void atualizar(){
+        this.posicaoEmX = this.posicaoEmX + this.deslocamentoEmX;
+        this.posicaoEmY = this.posicaoEmY + this.deslocamentoEmY;
+    }
+
+    public void mover(KeyEvent tecla){
+        int codigo = tecla.getKeyCode();
+        switch (codigo){
+            case KeyEvent.VK_UP:
+                this.deslocamentoEmY = -velocidadeDeDeslocamento;
+            break;
+            case KeyEvent.VK_DOWN:
+                this.deslocamentoEmY = +velocidadeDeDeslocamento;
+            break;
+            case KeyEvent.VK_RIGHT:
+                this.deslocamentoEmX = +velocidadeDeDeslocamento;
+            break;
+            case KeyEvent.VK_LEFT:
+                this.deslocamentoEmX = -velocidadeDeDeslocamento;
+            break;
+            case KeyEvent.VK_W:
+                this.deslocamentoEmY = -velocidadeDeDeslocamento;
+            break;
+            case KeyEvent.VK_S:
+                this.deslocamentoEmY = +velocidadeDeDeslocamento;
+            break;
+            case KeyEvent.VK_D:
+                this.deslocamentoEmX = +velocidadeDeDeslocamento;
+            break;
+            case KeyEvent.VK_A:
+                this.deslocamentoEmX = -velocidadeDeDeslocamento;
+            break;
+
+            default:
+                break;
+        }
+    }
+
+     public void parar(KeyEvent tecla){
+        int codigo = tecla.getKeyCode();
+        switch (codigo){
+            case KeyEvent.VK_UP:
+                this.deslocamentoEmY = 0;
+            break;
+            case KeyEvent.VK_DOWN:
+                this.deslocamentoEmY = 0;
+            break;
+            case KeyEvent.VK_RIGHT:
+                this.deslocamentoEmX = 0;
+            break;
+            case KeyEvent.VK_LEFT:
+                this.deslocamentoEmX = 0;
+            break;
+            case KeyEvent.VK_W:
+                this.deslocamentoEmY = 0;
+            break;
+            case KeyEvent.VK_S:
+                this.deslocamentoEmY = 0;
+            break;
+            case KeyEvent.VK_D:
+                this.deslocamentoEmX = 0;
+            break;
+            case KeyEvent.VK_A:
+                this.deslocamentoEmX = 0;
+            break;
+            default:
+                break;
+        }
     }
 
     public int getPosicaoEmX() {
