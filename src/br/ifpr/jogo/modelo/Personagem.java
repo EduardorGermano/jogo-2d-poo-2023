@@ -1,6 +1,7 @@
 package br.ifpr.jogo.modelo;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 
@@ -13,6 +14,7 @@ public class Personagem {
     private int larguraImagem;
     private int alturaImagem;
     private int velocidadeDeDeslocamento;
+    private ArrayList<Tiro> tiros;
 
     private static final int POSICAO_INICIAL_EM_X = 100;
     private static final int POSICAO_INICIAL_EM_Y = 100;
@@ -21,6 +23,7 @@ public class Personagem {
         this.posicaoEmX = POSICAO_INICIAL_EM_X;
         this.posicaoEmY = POSICAO_INICIAL_EM_Y;
         this.velocidadeDeDeslocamento = velocidadeDeDeslocamento;
+        this.tiros = new ArrayList<Tiro>();
     }
 
     public void carregar(){
@@ -100,6 +103,13 @@ public class Personagem {
         }
     }
 
+    public void atirar(){
+        int frenteDaNave = this.posicaoEmY + this.alturaImagem;
+        int meioDaNave = this.posicaoEmX + (this.larguraImagem / 2);
+        Tiro tiro = new Tiro(frenteDaNave, meioDaNave);
+        this.tiros.add(tiro);
+    }
+    
     public int getPosicaoEmX() {
         return this.posicaoEmX;
     }
@@ -156,4 +166,19 @@ public class Personagem {
         this.alturaImagem = alturaImagem;
     }
 
+    public int getVelocidadeDeDeslocamento() {
+        return this.velocidadeDeDeslocamento;
+    }
+
+    public void setVelocidadeDeDeslocamento(int velocidadeDeDeslocamento) {
+        this.velocidadeDeDeslocamento = velocidadeDeDeslocamento;
+    }
+
+    public ArrayList<Tiro> getTiros() {
+        return this.tiros;
+    }
+
+    public void setTiros(ArrayList<Tiro> tiros) {
+        this.tiros = tiros;
+    }
 }
