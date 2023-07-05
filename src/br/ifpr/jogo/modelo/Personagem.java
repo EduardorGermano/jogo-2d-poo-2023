@@ -11,8 +11,8 @@ public class Personagem extends ElementoGrafico {
     private ArrayList<Tiro> tiros;
     private ArrayList<TiroEspecial> especiais;
 
-    private static final int POSICAO_INICIAL_EM_X = 100;
-    private static final int POSICAO_INICIAL_EM_Y = 100;
+    private static final int POSICAO_INICIAL_EM_X = 450;
+    private static final int POSICAO_INICIAL_EM_Y = 600;
     
     public Personagem(int velocidadeDeDeslocamento){
         this.posicaoEmX = POSICAO_INICIAL_EM_X;
@@ -110,7 +110,8 @@ public class Personagem extends ElementoGrafico {
     public void soltar(){
         int meioDaNave = this.posicaoEmY;
         int frenteDaNave = this.posicaoEmX + (this.larguraImagem / 2);
-        //TiroEspecial especi
+        TiroEspecial especial = new TiroEspecial(frenteDaNave, meioDaNave);
+        this.especiais.add(especial);
     }
     
     public int getDeslocamentoEmX() {

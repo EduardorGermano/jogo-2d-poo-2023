@@ -5,7 +5,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
-import java.util.Random;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
@@ -49,6 +48,10 @@ public class Fase extends JPanel implements KeyListener,ActionListener{
         for (Tiro tiro : tiros) {
             graficos.drawImage(tiro.getImagem(), tiro.getPosicaoEmX(), tiro.getPosicaoEmY(), this);
         }
+        ArrayList<TiroEspecial> especiais = personagem.getEspeciais();
+        for (TiroEspecial especial : especiais){
+            graficos.drawImage(especial.getImagem(), especial.getPosicaoEmX(), especial.getPosicaoEmY(), this);
+        }
         for (Inimigo inimigo : inimigos){
             inimigo.carregar();
             graficos.drawImage(inimigo.getImagem(), inimigo.getPosicaoEmX(), inimigo.getPosicaoEmY(),this);
@@ -73,7 +76,11 @@ public class Fase extends JPanel implements KeyListener,ActionListener{
             personagem.atirar();
         else
             personagem.mover(e); 
-        
+
+        if (e.getKeyCode() == KeyEvent.VK_Q)
+            personagem.soltar();
+        else
+            personagem.mover(e);
     }
 
     @Override
@@ -96,14 +103,23 @@ public class Fase extends JPanel implements KeyListener,ActionListener{
                tiros.remove(i);
             else
                 tiros.get(i).atualizar();
-     }
-     for (int i = 0; i < this.inimigos.size(); i++){
-        Inimigo inimigo = this.inimigos.get(i);
-        if (inimigo.getPosicaoEmX() < 0)
-            inimigos.remove(inimigos);
-        else
-        inimigo.atualizar();
-     }
+        }
+
+        ArrayList<TiroEspecial> especiais = personagem.getEspeciais();
+        for (int i = 0; i < especiais.size(); i++){
+            if (especiais.get(i).getPosicaoEmX() > LARGURA_DA_JANELA)
+                especiais.remove(i);
+            else
+                especiais.get(i).atualizar();
+        }
+
+        for (int i = 0; i < this.inimigos.size(); i++){
+            Inimigo inimigo = this.inimigos.get(i);
+            if (inimigo.getPosicaoEmX() < 0)
+                inimigos.remove(inimigos);
+            else
+                inimigo.atualizar();
+        }
         repaint();        
     }
 }

@@ -2,7 +2,7 @@ package br.ifpr.jogo.modelo;
 import javax.swing.ImageIcon;
 
 public class TiroEspecial extends ElementoGrafico {
-    private static int VELOCIDADE = 3;
+    private static int VELOCIDADE = 2;
 
     public TiroEspecial(int posicaoPersonagemEmX, int posicaoPersonagemEmY){
         this. carregar();
