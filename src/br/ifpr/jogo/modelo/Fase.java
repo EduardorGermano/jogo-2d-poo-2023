@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
+import java.util.Random;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
@@ -17,6 +18,8 @@ public class Fase extends JPanel implements KeyListener,ActionListener{
     private Image imagemFundo;
     private Personagem personagem;
     private Timer timer;
+    private ArrayList<Inimigo> inimigos;
+    private static final int QTDE_DE_INIMIGOS = 40;
 
     private static final int DELAY = 5;
     private static final int VELOCIDADE_DE_DESCOLAMENTO = 3;
@@ -30,6 +33,8 @@ public class Fase extends JPanel implements KeyListener,ActionListener{
 
         this.personagem = new Personagem(VELOCIDADE_DE_DESCOLAMENTO);
         this.personagem.carregar();
+        this.inicializaInimigos();
+
         this.addKeyListener(this);
 
         this.timer = new Timer(DELAY, this);
@@ -42,10 +47,23 @@ public class Fase extends JPanel implements KeyListener,ActionListener{
         graficos.drawImage(this.personagem.getImagem(), this.personagem.getPosicaoEmX(), this.personagem.getPosicaoEmY(), null);
         ArrayList<Tiro> tiros = personagem.getTiros();
         for (Tiro tiro : tiros) {
-            tiro.carregar();
             graficos.drawImage(tiro.getImagem(), tiro.getPosicaoEmX(), tiro.getPosicaoEmY(), this);
         }
+        for (Inimigo inimigo : inimigos){
+            inimigo.carregar();
+            graficos.drawImage(inimigo.getImagem(), inimigo.getPosicaoEmX(), inimigo.getPosicaoEmY(),this);
+        }
         g.dispose();
+    }
+
+    public void inicializaInimigos(){
+        inimigos = new ArrayList<Inimigo>();
+        for (int i = 0; i < QTDE_DE_INIMIGOS; i++){
+            int x = (int) (Math.random() * 10 + 1060);
+            int y = (int) (Math.random() * 1550 + 1700);
+            Inimigo inimigo = new Inimigo(x, y);
+            inimigos.add(inimigo);
+        }
     }
 
     @Override
@@ -78,6 +96,13 @@ public class Fase extends JPanel implements KeyListener,ActionListener{
                tiros.remove(i);
             else
                 tiros.get(i).atualizar();
+     }
+     for (int i = 0; i < this.inimigos.size(); i++){
+        Inimigo inimigo = this.inimigos.get(i);
+        if (inimigo.getPosicaoEmX() < 0)
+            inimigos.remove(inimigos);
+        else
+        inimigo.atualizar();
      }
         repaint();        
     }

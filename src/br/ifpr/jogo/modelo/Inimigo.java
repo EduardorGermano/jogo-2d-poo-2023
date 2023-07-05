@@ -2,30 +2,30 @@ package br.ifpr.jogo.modelo;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 
-public class Tiro {
+public class Inimigo {
     private int posicaoEmX;
     private int posicaoEmY;
     private Image imagem;
     private int larguraImagem;
     private int alturaImagem;
-    private static int VELOCIDADE = 2;
+    private static final int VELOCIDADE = 2;
 
-    public Tiro(int posicaoPersonagemEmX, int posicaoPersonagemEmY) {
-        this.carregar();
-        this.posicaoEmX = posicaoPersonagemEmX - (this.larguraImagem / 2);
-        this.posicaoEmY = posicaoPersonagemEmY;
+    public Inimigo(int xAleatorio, int yAleatorio){
+        this.posicaoEmX = xAleatorio;
+        this.posicaoEmY = yAleatorio;
     }
 
-    public void carregar() {
-        ImageIcon carregando = new ImageIcon("recurso\\Tiro.png");
+    public void carregar(){
+        ImageIcon carregando = new ImageIcon("recurso\\Inimigo.png");
         this.imagem = carregando.getImage();
         this.alturaImagem = this.imagem.getHeight(null);
         this.larguraImagem = this.imagem.getWidth(null);
     }
 
-    public void atualizar() {
-        this.posicaoEmY = this.posicaoEmY - VELOCIDADE;
+    public void atualizar(){
+        this.posicaoEmY = this.posicaoEmY + VELOCIDADE;
     }
+
 
     public int getPosicaoEmX() {
         return this.posicaoEmX;
