@@ -5,8 +5,8 @@ public class Inimigo extends ElementoGrafico{
     private static final int VELOCIDADE = 2;
 
     public Inimigo(int xAleatorio, int yAleatorio){
-        this.posicaoEmX = xAleatorio;
-        this.posicaoEmY = yAleatorio;
+        this.setPosicaoEmX(xAleatorio);
+        this.setPosicaoEmY(yAleatorio);
     }
 
     public void carregar(){

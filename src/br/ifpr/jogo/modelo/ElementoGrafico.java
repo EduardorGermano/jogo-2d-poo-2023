@@ -2,11 +2,11 @@ package br.ifpr.jogo.modelo;
 import java.awt.Image;
 
 public class ElementoGrafico {
-   protected int posicaoEmX;
-   protected int posicaoEmY;
-   protected Image imagem;
-   protected int larguraImagem;
-   protected int alturaImagem;
+   private int posicaoEmX;
+   private int posicaoEmY;
+   private Image imagem;
+   private int larguraImagem;
+   private int alturaImagem;
 
     public int getPosicaoEmX() {
         return this.posicaoEmX;
@@ -46,5 +46,11 @@ public class ElementoGrafico {
 
     public void setAlturaImagem(int alturaImagem) {
         this.alturaImagem = alturaImagem;
+    }
+
+    public abstract void carregar(){
+        this.imagem = carregando.getImage();
+        this.alturaImagem = this.imagem.getHeight(null);
+        this.larguraImagem = this.imagem.getWidth(null);
     }
 }

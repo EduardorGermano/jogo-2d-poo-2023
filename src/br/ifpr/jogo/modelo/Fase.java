@@ -63,7 +63,7 @@ public class Fase extends JPanel implements KeyListener,ActionListener{
         inimigos = new ArrayList<Inimigo>();
         for (int i = 0; i < QTDE_DE_INIMIGOS; i++){
             int x = (int) (Math.random() * LARGURA_DA_JANELA);
-            int y = (int) (Math.random() * -9000);
+            int y = (int) (Math.random() * -8000);
             Inimigo inimigo = new Inimigo(x, y);
             inimigos.add(inimigo);
         }
